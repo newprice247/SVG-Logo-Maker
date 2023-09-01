@@ -21,6 +21,13 @@
   ],
   "author": "Nathaniel Price",
   "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "inquirer-maxlength-input-prompt": "^1.0.2"
+  },
   "bugs": {
     "url": "https://github.com/newprice247/SVG-Logo-Maker/issues"
   },
