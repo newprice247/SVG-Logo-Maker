@@ -1,6 +1,9 @@
 const inquirer = require('inquirer');
 const maxLength = require('inquirer-maxlength-input-prompt');
+const fs = require('fs');
+const generateSVG = require('./lib/generateSVG.js')
 inquirer.registerPrompt('maxlength-input', maxLength)
+
 
 
 const questions = [
@@ -56,7 +59,7 @@ const questions = [
             if (answers.charKeywordOrRgb === "I'll use RGB Hexadecimals") {
                 return true;
             }
-        }   
+        }
     },
     {
         type: 'list',
@@ -110,7 +113,7 @@ const questions = [
             if (answers.backgroundKeywordOrRgb === "I'll use RGB Hexadecimals") {
                 return true;
             }
-        }   
+        }
     }
 
 ]
@@ -118,5 +121,11 @@ const questions = [
 inquirer
     .prompt(questions)
     .then((data) => {
-        console.log(data)
+        console.log(data.backgroundColorList || data.backgroundColorKeyword || data.backgroundRGB)
+        let writeToFile = (data) => {
+            fs.writeFile('output.svg', `${data}`, function (err) {
+                    err ? console.log(err): console.log('success!');
+                })
+        }
+        writeToFile(generateSVG(data))
     })
