@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
 const maxLength = require('inquirer-maxlength-input-prompt');
 const fs = require('fs');
-const generateSVG = require('./lib/generateSVG.js')
+const { SVG } = require('./lib/generateSVG.js');
+const { Square, Triangle, Circle } = require("./lib/shapes.js");
 inquirer.registerPrompt('maxlength-input', maxLength)
 
 
@@ -14,52 +15,10 @@ const questions = [
         maxLength: 3
     },
     {
-        type: 'list',
-        name: 'charColorChoice',
-        message: 'Would you like to choose from a list of colors for the text or type your own?',
-        choices: ['Show me a list of colors!', "I'd like to type in my own color"],
-    },
-    {
-        type: 'list',
-        name: 'charKeywordOrRgb',
-        message: 'Would you like to type the name of your color or use RGB Hexadecimals?',
-        choices: ["I'd like to use a color keyword", "I'll use RGB Hexadecimals"],
-        when: (answers) => {
-            if (answers.charColorChoice === "I'd like to type in my own color") {
-                return true;
-            }
-        }
-    },
-    {
-        type: 'list',
-        name: 'charColorList',
-        message: 'Choose your logo color from the options below',
-        choices: ['Red', 'Blue', 'Green', 'Black', 'Yellow', 'Orange', 'Purple', 'Grey', 'Brown'],
-        when: (answers) => {
-            if (answers.charColorChoice === 'Show me a list of colors!') {
-                return true;
-            }
-        }
-    },
-    {
         type: 'input',
-        name: 'charColorKeyword',
-        message: 'Please type the name of the color you would like to use: ',
-        when: (answers) => {
-            if (answers.charKeywordOrRgb === "I'd like to use a color keyword") {
-                return true;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'charRGB',
-        message: 'Please type the RGB Hexadecimal value for the color you would like to use, using commas to separate the numbers\n (Example : ###, ###, ###): ',
-        when: (answers) => {
-            if (answers.charKeywordOrRgb === "I'll use RGB Hexadecimals") {
-                return true;
-            }
-        }
+        name: 'charColor',
+        message: 'What color would you like your text to be? Please type the either name of the color or the RGB hexadecimal for the color you would like to use: \n',
+
     },
     {
         type: 'list',
@@ -68,64 +27,44 @@ const questions = [
         choices: ['Triangle', 'Square', 'Circle']
     },
     {
-        type: 'list',
-        name: 'backgroundColorChoice',
-        message: 'Would you like to choose from a list of colors for your background or type your own?',
-        choices: ['Show me a list of colors!', "I'd like to type in my own color"],
-    },
-    {
-        type: 'list',
-        name: 'backgroundKeywordOrRgb',
-        message: 'Would you like to type the name of your color or use RGB Hexadecimals?',
-        choices: ["I'd like to use a color keyword", "I'll use RGB Hexadecimals"],
-        when: (answers) => {
-            if (answers.backgroundColorChoice === "I'd like to type in my own color") {
-                return true;
-            }
-        }
-    },
-    {
-        type: 'list',
-        name: 'backgroundColorList',
-        message: 'Choose your logo color from the options below',
-        choices: ['Red', 'Blue', 'Green', 'Black', 'Yellow', 'Orange', 'Purple', 'Grey', 'Brown'],
-        when: (answers) => {
-            if (answers.backgroundColorChoice === 'Show me a list of colors!') {
-                return true;
-            }
-        }
-    },
-    {
         type: 'input',
-        name: 'backgroundColorKeyword',
-        message: 'Please type the name of the color you would like to use: ',
-        when: (answers) => {
-            if (answers.backgroundKeywordOrRgb === "I'd like to use a color keyword") {
-                return true;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'backgroundRGB',
-        message: 'Please type the RGB Hexadecimal value for the color you would like to use, using commas to separate the numbers\n (Example : ###, ###, ###): ',
-        when: (answers) => {
-            if (answers.backgroundKeywordOrRgb === "I'll use RGB Hexadecimals") {
-                return true;
-            }
-        }
+        name: 'backgroundColor',
+        message: 'What color would you like your background to be? Please type the either name of the color or the RGB hexadecimal for the color you would like to use: \n',
+
     }
+
 
 ]
 
 inquirer
     .prompt(questions)
     .then((data) => {
-        console.log(data.backgroundColorList || data.backgroundColorKeyword || data.backgroundRGB)
-        let writeToFile = (data) => {
-            fs.writeFile('output.svg', `${data}`, function (err) {
-                    err ? console.log(err): console.log('success!');
-                })
+        console.log(data)
+        let logo = ``;
+        console.log('here is the data in the func: ' + data)
+        let svg = new SVG();
+        console.log(svg)
+        if (data.shape === `Triangle`) {
+            const triangle = new Triangle();
+            console.log(triangle)
+            triangle.setColor(data.backgroundColor)
+            svg.setShape(triangle);
+        } else if (data.shape === `Circle`) {
+            const circle = new Circle();
+            circle.setColor(data.backgroundColor)
+            svg.setShape(circle);
+        } else if (data.shape === `Square`) {
+            const square = new Square();
+            square.setColor(data.backgroundColor)
+            svg.setShape(square);
         }
-        writeToFile(generateSVG(data))
+        svg.setText(`${data.chars}`, `${data.charColor}`);
+        svg.render()
+        console.log('your svg: ' + svg.generatedSVG)
+        logo += svg.generatedSVG
+        console.log('pre- logo: ' + logo)
+        console.log('your logo: ' + logo)
+        fs.writeFile('output.svg', `${logo}`, function (err) {
+            err ? console.log(err) : console.log('Success!')
+        })
     })
