@@ -1,12 +1,20 @@
+// Pulls in all required dependencies from installed node modules, as well as classes from local .js files
+
+//Dependencies
 const inquirer = require('inquirer');
-const maxLength = require('inquirer-maxlength-input-prompt');
 const fs = require('fs');
-const { SVG } = require('./lib/generateSVG.js');
-const { Square, Triangle, Circle } = require("./lib/shapes.js");
+
+// Gives inquirer access to maxlength method, which allows you set a maximum length of characters for the input method
+const maxLength = require('inquirer-maxlength-input-prompt');
 inquirer.registerPrompt('maxlength-input', maxLength)
 
+// Classes
+const { SVG } = require('./lib/generateSVG.js');
+const { Square, Triangle, Circle } = require("./lib/shapes.js");
 
 
+
+// Inquirer prompts for the questionaire that will gather the specifications for the user's logo
 const questions = [
     {
         type: 'maxlength-input',
@@ -17,7 +25,7 @@ const questions = [
     {
         type: 'input',
         name: 'charColor',
-        message: 'What color would you like your text to be? Please type the either name of the color or the RGB hexadecimal for the color you would like to use: \n',
+        message: 'What color would you like your text to be? Please type the either name of the color\n or the RGB-hexadecimal(i.e. - "#333") for the color you would like to use: \n',
 
     },
     {
@@ -36,10 +44,13 @@ const questions = [
 
 ]
 
+// Function to build the logo based on user-input
 inquirer
     .prompt(questions)
     .then((data) => {
+        //Creates a new svg object built from the SVG class
         let svg = new SVG();
+        //If statement for the user's chosen shape, will build a new shape object based on the chosen shape's parent class, then sets the color
         if (data.shape === `Triangle`) {
             const triangle = new Triangle();
             triangle.setColor(data.backgroundColor)
@@ -53,9 +64,11 @@ inquirer
             square.setColor(data.backgroundColor)
             svg.setShape(square);
         }
+        //Sets the 3-character text for the logo and text color
         svg.setText(`${data.chars}`, `${data.charColor}`);
         svg.render()
-        fs.writeFile('./examples/logo.svg', `${svg.generatedSVG}`, function (err) {
+        //Writes the new file as 'logo.svg' using the string that was built using SVG class methods and inquirer prompts, then logs 'Generated logo.svg' to the console
+        fs.writeFile('./output/logo.svg', `${svg.generatedSVG}`, function (err) {
             err ? console.log(err) : console.log('Generated logo.svg')
         })
     })

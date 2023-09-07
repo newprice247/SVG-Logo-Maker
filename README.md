@@ -21,6 +21,14 @@
 
   The app will run through a series of questions, gathering information such as the text and color for your logo, then generate the file and save it to the 'output' folder.
 
+  [Click here to see video of app in action](https://drive.google.com/file/d/1WhpglDriw-HrHE_cxauzEQpUJLjxNA9W/view)
+
+  ![Alt text](<./lib/media/svgWalkthrough.gif>)
+  
+  [Link to generated logo.svg file](./output/logo.svg)
+
+  ![Alt text](output/logo.svg)
+
   ## Contribution
 
   Clone the repo, make improvements and push the changes, or contact me with suggestions!
@@ -31,7 +39,11 @@
 
   ## Tests
 
-  The application is configured to use jest, so navigate to the 'SVG-Logo-Maker' folder, run 'npm install'. Then navigate into the 'lib' folder and run the tests using 'npm test' or specify which built-in test you want to test using 'npm test {specifiedFile.js}'
+  The application is configured to use jest: 
+  * Navigate to the 'SVG-Logo-Maker' folder
+  * Run 'npm install'
+  * Navigate into the 'lib' folder 
+  * Run the tests using 'npm test' -or- specify which built-in test you want to test using 'npm test {specifiedFile.js}'
 
   ## Questions
   
