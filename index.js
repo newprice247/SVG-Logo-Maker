@@ -39,14 +39,9 @@ const questions = [
 inquirer
     .prompt(questions)
     .then((data) => {
-        console.log(data)
-        let logo = ``;
-        console.log('here is the data in the func: ' + data)
         let svg = new SVG();
-        console.log(svg)
         if (data.shape === `Triangle`) {
             const triangle = new Triangle();
-            console.log(triangle)
             triangle.setColor(data.backgroundColor)
             svg.setShape(triangle);
         } else if (data.shape === `Circle`) {
@@ -60,11 +55,7 @@ inquirer
         }
         svg.setText(`${data.chars}`, `${data.charColor}`);
         svg.render()
-        console.log('your svg: ' + svg.generatedSVG)
-        logo += svg.generatedSVG
-        console.log('pre- logo: ' + logo)
-        console.log('your logo: ' + logo)
-        fs.writeFile('output.svg', `${logo}`, function (err) {
-            err ? console.log(err) : console.log('Success!')
+        fs.writeFile('./examples/logo.svg', `${svg.generatedSVG}`, function (err) {
+            err ? console.log(err) : console.log('Generated logo.svg')
         })
     })
