@@ -26,7 +26,7 @@
   
   * Navigate to the 'SVG-Logo-Maker' folder in your terminal
   * Run 'node index.js' to start the questionaire
-  * Choose your text(Max 3 characters)
+  * Choose your text (Max 3 characters)
   * Choose your text color (Using the name of the color (i.e. 'Red'), or the hexadecimal (i.e. '#333'))
   * Choose the shape you would like as the logo's background
   * Choose the shape's color (Using the name of the color (i.e. 'Red'), or the hexadecimal (i.e. '#333'))
