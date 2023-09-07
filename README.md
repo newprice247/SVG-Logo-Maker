@@ -25,7 +25,7 @@
   The app will run through a series of questions, gathering information such as the text and color for your logo, then generate the file and save it to the 'output' folder.
   
   * Navigate to the 'SVG-Logo-Maker' folder in your terminal
-  * Run 'node index.js' to start the questionaire
+  * Run 'node index.js' to start the questionaire inside the terminal
   * Choose your text (Max 3 characters)
   * Choose your text color (Using the name of the color (i.e. 'Red'), or the hexadecimal (i.e. '#333'))
   * Choose the shape you would like as the logo's background
