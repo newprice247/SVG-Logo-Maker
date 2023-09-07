@@ -15,11 +15,22 @@
   
   ## Installation
 
-  Clone the repo to your local machine, navigate to the 'SVG-Logo-Maker' folder in your terminal, run 'npm install' to install the necessary node modules, then run 'node index.js' to start the questionaire.
+  * Clone the repo to your local machine
+  * Navigate to the 'SVG-Logo-Maker' folder in your terminal
+  * Run 'npm install' to install the necessary node modules
+  
 
   ## Usage
 
   The app will run through a series of questions, gathering information such as the text and color for your logo, then generate the file and save it to the 'output' folder.
+  
+  * Navigate to the 'SVG-Logo-Maker' folder in your terminal
+  * Run 'node index.js' to start the questionaire
+  * Choose your text(Max 3 characters)
+  * Choose your text color (Using the name of the color (i.e. 'Red'), or the hexadecimal (i.e. '#333'))
+  * Choose the shape you would like as the logo's background
+  * Choose the shape's color (Using the name of the color (i.e. 'Red'), or the hexadecimal (i.e. '#333'))
+  * Your logo.svg file will generated to the 'output' folder
 
   [Click here to see video of app in action](https://drive.google.com/file/d/1WhpglDriw-HrHE_cxauzEQpUJLjxNA9W/view)
 
@@ -41,7 +52,7 @@
 
   The application is configured to use jest: 
   * Navigate to the 'SVG-Logo-Maker' folder
-  * Run 'npm install'
+  * Run 'npm install' to install necessary node modules
   * Navigate into the 'lib' folder 
   * Run the tests using 'npm test' -or- specify which built-in test you want to test using 'npm test {specifiedFile.js}'
 
