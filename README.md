@@ -51,10 +51,10 @@
   ## Tests
 
   The application is configured to use jest: 
-  * Navigate to the 'SVG-Logo-Maker' folder
+  * Navigate to the 'SVG-Logo-Maker' folder from your terminal
   * Run 'npm install' to install necessary node modules
   * Navigate into the 'lib' folder 
-  * Run the tests using 'npm test' -or- specify which built-in test you want to test using 'npm test {specifiedFile.js}'
+  * Run the tests by using 'npm test' -or- specify which built-in test you want to test by using 'npm test {specifiedFile.js}'
 
   ## Questions
   
